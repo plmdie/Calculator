@@ -5,16 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
     <title>Calculator</title>
 </head>
 <body>
     <main>
         <div id="calculator">
-            <div id="display">
-                <span class="result"></span>
-                <span class="display"></span>
+            <div class="display">
+                <span id="result">0</span>
+                <span id="display">0</span>
             </div>
             <div id="buttons">
+                <button class="option" id="clear">Clear</button>
+                <button class="option" id="eight"><-</button>
+                <button class="option" id="negative">+/-</button>
+                <button class="operator" id="nine">%</button>
+
                 <button class="digit" id="seven">7</button>
                 <button class="digit" id="eight">8</button>
                 <button class="digit" id="nine">9</button>
@@ -29,7 +35,7 @@
                 <button class="operator" id="plus">+</button>
                 <button class="decimal" id="decimal">.</button>
                 <button class="digit" id="zero">0</button>
-                <button class="result" id="equal">=</button>
+                <button class="equal" id="equal">=</button>
                 <button class="operator" id="minus">-</button>
             </div>
         </div>
