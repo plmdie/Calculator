@@ -17,7 +17,7 @@ main {
     width: 350px;
     height: 580px;
     margin-top: 10vh;
-    padding: 2vh 2vw;
+    padding: 10px 10px;
     background-color: beige;
     border-radius: 10px;
 }
@@ -55,7 +55,7 @@ main {
 }
 #buttons {
     display: grid;
-    grid-gap: 10px;
+    grid-gap: 7px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     
@@ -65,6 +65,14 @@ main {
 #equal {
     /* grid-row: 4; */
     /* grid-column: 3/5; */
+}
+
+.operator {
+    background-color: rgb(201, 156, 238);
+}
+
+.option {
+    background-color: rgb(245, 182, 234);
 }
 
 button {
