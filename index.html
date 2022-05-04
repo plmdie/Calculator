@@ -4,22 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
     <title>Calculator</title>
 </head>
 <body>
     <main>
+        <header>
+            <p id="header">Calculator</p>
+        </header>
         <div id="calculator">
             <div class="display">
-                <span id="result">0</span>
-                <span id="display">0</span>
+                <span id="result"></span>
+                <span id="display"></span>
             </div>
             <div id="buttons">
                 <button class="option" id="clear">Clear</button>
                 <button class="option" id="back"><-</button>
                 <button class="option" id="negative">+/-</button>
-                <button class="operator" id="nine">%</button>
+                <button class="operator" id="percentage">%</button>
                 <button class="digit" id="seven">7</button>
                 <button class="digit" id="eight">8</button>
                 <button class="digit" id="nine">9</button>
@@ -39,5 +42,11 @@
             </div>
         </div>
     </main>
+    <footer>
+        <div id="footer">
+            <p>made by </p>
+            <a href="https://github.com/plmdie/">plmdie</a>
+        </div>
+    </footer>
 </body>
 </html>

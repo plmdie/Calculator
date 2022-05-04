@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Square+Peg&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+   font-family: 'Exo 2', sans-serif;
+   background-color: #EBF5DF;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    font-family: 'Square Peg', cursive;
+    font-size: 5em;
+    font-weight: bold;
+    margin-top: 2vh;
+}
+
+#calculator {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 350px;
+    height: 580px;
+    margin-top: 2vh;
+    padding: 10px 10px;
+    padding-bottom: 0px;
+    background-color: #293241;
+    border-radius: 10px;
+}
+
+.display {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: 120px;
+    width: 350px;
+    border: 2px;
+    border-radius: 5px;
+    background-color: #D4D4AA;
+    overflow: hidden;
+}
+
+#result {
+    display: flex;
+    align-items:  center;
+    align-self: flex-start;
+    height: 25px;
+    overflow: hidden;
+    padding-left: 5px;
+}
+
+#display {
+    display: flex;
+    align-items: flex-end;
+    flex-grow: 1; 
+    font-size: 40px;
+    height: 25px;
+    max-width: 340px;
+    padding-right: 5px;
+    
+}
+#buttons {
+    display: grid;
+    grid-gap: 7px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.operator {
+   background-color: #EDB458;
+}
+
+.operator:hover {
+    background-color: #e9ca99;
+}
+
+.option {
+    background-color: #f1d6aa;
+}
+
+.option:hover {
+    background-color: #f7ebd9;
+}
+
+button {
+    height: 80px;
+    background-color: #BAD4AA;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    font-size: 15px;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #82af67;
+}
+
+#footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    color: rgb(0, 0, 0);
+    font-size: 2em;
+    font-weight: bold;
+    font-family: 'Square Peg', cursive;
+}
+
+#footer a {
+    text-decoration: none;
+    color: #c77121;
+    transition: transform 2s;
+}
+
+#footer a:hover {
+    color: #cf6400;
+    transform: rotateY(360deg);;
+    -moz-transform: rotateY(360deg);
+}

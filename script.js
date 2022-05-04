@@ -1,20 +1,15 @@
-const buttons = document.querySelectorAll('.digit');
+const buttons = document.querySelectorAll('button');
 const display = document.getElementById('display');
 const result = document.getElementById('result');
 const operator = document.querySelectorAll('.operator');
-const equal = document.getElementById('equal');
-const clearBtn = document.getElementById('clear');
-const back = document.getElementById('back');
+
+let num1, num2, displayValue, operatorBtn, resultValue, lastOperatorBtn, digitPressed, calculation;
 
 
-let teste;
-let num1, num2;
-let displayValue;
-let operatorBtn;
-let resultValue;
-let lastOperatorBtn;
+buttons.forEach(item => item.addEventListener('click', parseBtnKey));
 
-let digitPressed;
+document.addEventListener('keyup', parseBtnKey);
+
 
 const sum = (n1, n2) => n1 + n2;
 
@@ -30,108 +25,126 @@ const remainder = (n1, n2) => n1 % n2;
 const operate = (n1, o, n2) => {
     let res;
     console.log(n1, n2);
-    n1 = parseInt(n1);
-    n2 = parseInt(n2);
-    if (!n2) {
-        display.innerText = 'computer broken';
-        return;
-    }    
-    if (o === '+') res = sum(n1, n2); 
-    if (o === '-') res = substract(n1, n2);
-    if (o === 'x') res = multiply(n1, n2);
-    if (o === '/') res = divide(n1, n2);
-    if (o === '%') res = remainder(n1, n2);
-    display.innerText = res;
-    displayValue = display.innerText;
-    num2 = null; 
-    num1 = res;
-    return res;
+    if (!o) return;
+    n1 = parseFloat(n1);
+    n2 = parseFloat(n2);
+    if (n2) { 
+        if (o === '+') res = sum(n1, n2); 
+        if (o === '-') res = substract(n1, n2);
+        if (o === 'x' || o === '*') res = multiply(n1, n2);
+        if (o === '/') res = divide(n1, n2);
+        if (o === '%') res = remainder(n1, n2);
+        num1 = res.toFixed(6);
+        return parseFloat(res.toFixed(6));
+    } else if (o === 'x' || o === '/') return 'broken';
 }
 
-buttons.forEach(item => item.addEventListener('click', fillDisplay));
-
-operator.forEach(item => item.addEventListener('click', calculate));
-
-equal.addEventListener('click', equals);
-
-back.addEventListener('click', backSpace);
-
-clearBtn.addEventListener('click', clear);
-
 function equals() {
-    lastOperatorBtn ? operate(num1, lastOperatorBtn, num2) : operate(num1, operatorBtn, num2); 
-    result.innerText = 0;
-    operatorBtn = null;
-    num1 = null;   
+    getDisplayValues();
+    if (calculation) return;
+    if (num1) num2 = displayValue;
+    writeToResult(resultValue + displayValue)
+    writeToDisplay(operate(num1, operatorBtn, num2));
+    calculation = true;
+}
+
+
+function parseBtnKey(e) {
+    e.key ? setBtnValue(e.key) : setBtnValue(e.originalTarget.textContent);
+}
+
+function setBtnValue(buttonValue) {
+    if (buttonValue >= 0 && buttonValue <= 9 || buttonValue === '.') fillDisplay(buttonValue); 
+    if (buttonValue === '+'
+    || buttonValue === '-'
+    || buttonValue === '/'
+    || buttonValue === 'x' 
+    || buttonValue === '*' ) calculate(buttonValue); 
+    if (buttonValue === '=' || buttonValue === 'Enter') equals();
+    if (buttonValue === '<-' || buttonValue === 'Backspace') backSpace();
+    if (buttonValue === 'Clear' || buttonValue === 'Delete') clear();
+    if (buttonValue === '%') percentage();
+    if (buttonValue === '+/-') minus();
 }
 
 function calculate(e) {
-    resultValue = result.innerText;
-    console.log(typeof resultValue, typeof displayValue);
-    digitPressed = getLastDigit();
-    if (num1) operatorBtn = e.originalTarget.innerText;
-    if (num2) lastOperatorBtn ? operate(num1, lastOperatorBtn, num2) : operate(num1, operatorBtn, num2); 
-    if (resultValue != 0 && digitPressed) result.innerText += e.originalTarget.innerText;
-    if (resultValue === '0' && displayValue != '0') {
-        operatorBtn = e.originalTarget.innerText;
-        result.innerText = displayValue + operatorBtn;
-        num1 = displayValue;
-    }
-    lastOperatorBtn = operatorBtn; 
-}
-
-function fillDisplay(e) {   
-    const digitPressedValue = e.originalTarget.innerText;
-    resultValue = result.innerText;
-    digitPressed = getLastDigit();
-    if (display.innerText === 'computer broken') display.innerText = 0; 
-    if (operatorBtn) {
-        if (num1) {
-            if (!getLastDigit()) {
-                console.log('case 4');
-                num2 ? num2 += digitPressedValue: num2 = digitPressedValue;
-                result.innerText += digitPressedValue;
-            } else {
-                console.log('case 3');
-            num2 += digitPressedValue; 
-            resultValue != 0 ? result.innerText += digitPressedValue : result.innerText = digitPressedValue;
+    getDisplayValues();
+    operatorBtn = e;
+    if (displayValue != '0') {
+        if (getLastDigit() || displayValue) {
+            if (calculation) {
+                writeToResult(displayValue + operatorBtn);
+                num1 = displayValue;
+                writeToDisplay('');
+                calculation = false;
             }
-        }  
-    } else { 
-        if (num1)  {
-            console.log('case 2');
-            num1 += digitPressedValue;
-            resultValue != 0 ? result.innerText += digitPressedValue : result.innerText = digitPressedValue; 
-        } 
-        else {
-            console.log('case 4');
-            num1 = digitPressedValue;
-            result.innerText = num1;
+            else if (!num1) {
+                writeToResult(resultValue + displayValue + operatorBtn);
+                num1 = displayValue;
+                writeToDisplay('');
+            }
+            else if (num1) {
+                writeToResult(resultValue + displayValue + operatorBtn);
+                num2 = displayValue;
+                display.textContent = '';
+                lastOperatorBtn ? operate(num1, lastOperatorBtn, num2) : operate(num1, operatorBtn, num2); 
+            }
         }
     }
+    lastOperatorBtn = operatorBtn;
+}
+
+
+function fillDisplay(digitPressedValue) {   
+    getDisplayValues();
+    if (!getLastDigit && digitPressedValue === '0') return; 
+    if (digitPressedValue === '.') {
+        if (!displayValue) display.textContent = '0' + digitPressedValue; 
+        else if (!displayValue.includes('.')) display.textContent += digitPressedValue;
+    }
+    else {
+        if (calculation) {
+            display.textContent = digitPressedValue;
+            writeToResult('');
+            num1 = null;
+            calculation = false;
+        } else display.textContent += digitPressedValue;
+    }
+}
+
+const writeToDisplay = value => display.textContent = value;
+
+const writeToResult = value => result.textContent = value;
+
+
+function minus() {
+    getDisplayValues();
+    if (displayValue != '') writeToDisplay(-displayValue);
+}
+
+function percentage() {
+    getDisplayValues();
+    writeToDisplay(parseFloat(displayValue) / 100);
 }
 
 function clear() {
-    display.innerText = 0;
-    result.innerText = 0;
+    display.textContent = '';
+    result.textContent = '';
     num1 = num2 = operatorBtn = null;
 }
 
 function backSpace() {
     let remove = getLastDigit();
-    if (remove) {
-        if (num2) num2 = removeLastDigit(num2); 
-        else if (num1) num1 = removeLastDigit(num1); 
-    } else operatorBtn = null;
-
-    let resultDis = resultValue.slice(0,-1);    
-    result.innerText = resultDis;    
+    display.textContent = removeLastDigit(display.textContent); 
 }
 
+function getDisplayValues() {
+    resultValue = result.textContent;
+    displayValue = display.textContent;
+}
 
 function getLastDigit() {
-    resultValue = result.innerText;
-    return /[0-9]$/.test(resultValue) ? result.innerText.charAt(result.innerText.length-1) : false;
+    return /[0-9]$/.test(result.textContent) ? result.textContent.charAt(result.textContent.length-1) : false;
 }
 
 function removeLastDigit(n) {
