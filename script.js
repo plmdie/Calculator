@@ -24,7 +24,6 @@ const remainder = (n1, n2) => n1 % n2;
 
 const operate = (n1, o, n2) => {
     let res;
-    console.log(n1, n2);
     if (!o) return;
     n1 = parseFloat(n1);
     n2 = parseFloat(n2);
@@ -41,17 +40,18 @@ const operate = (n1, o, n2) => {
 
 function equals() {
     getDisplayValues();
-    
+    console.log(displayValue);
+        if (displayValue != '') {    
         if (calculation) return;
         if (num1) num2 = displayValue;
         writeToResult(resultValue + displayValue)
         writeToDisplay(operate(num1, operatorBtn, num2));
-        calculation = true;
-    
+        calculation = true;  
+    }  
 }
 
-
 function parseBtnKey(e) {
+    document.activeElement.blur()
     e.key ? setBtnValue(e.key) : setBtnValue(e.target.textContent);
 }
 
@@ -61,7 +61,7 @@ function setBtnValue(buttonValue) {
     || buttonValue === '-'
     || buttonValue === '/'
     || buttonValue === 'x' 
-    || buttonValue === '*' ) calculate(buttonValue); 
+    || buttonValue === '*' ) calculate(buttonValue);
     if (buttonValue === '=' || buttonValue === 'Enter') equals();
     if (buttonValue === '<-' || buttonValue === 'Backspace') backSpace();
     if (buttonValue === 'Clear' || buttonValue === 'Delete') clear();
@@ -108,7 +108,7 @@ function fillDisplay(digitPressedValue) {
         if (calculation) {
             display.textContent = digitPressedValue;
             writeToResult('');
-            num1 = null;
+            num1 = '';
             calculation = false;
         } else display.textContent += digitPressedValue;
     }
