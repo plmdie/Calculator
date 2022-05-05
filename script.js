@@ -41,11 +41,13 @@ const operate = (n1, o, n2) => {
 
 function equals() {
     getDisplayValues();
-    if (calculation) return;
-    if (num1) num2 = displayValue;
-    writeToResult(resultValue + displayValue)
-    writeToDisplay(operate(num1, operatorBtn, num2));
-    calculation = true;
+    
+        if (calculation) return;
+        if (num1) num2 = displayValue;
+        writeToResult(resultValue + displayValue)
+        writeToDisplay(operate(num1, operatorBtn, num2));
+        calculation = true;
+    
 }
 
 
@@ -130,7 +132,7 @@ function percentage() {
 function clear() {
     display.textContent = '';
     result.textContent = '';
-    num1 = num2 = operatorBtn = null;
+    num1 = num2 = operatorBtn = '';
 }
 
 function backSpace() {
