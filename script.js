@@ -50,7 +50,7 @@ function equals() {
 
 
 function parseBtnKey(e) {
-    e.key ? setBtnValue(e.key) : setBtnValue(e.originalTarget.textContent);
+    e.key ? setBtnValue(e.key) : setBtnValue(e.target.textContent);
 }
 
 function setBtnValue(buttonValue) {
