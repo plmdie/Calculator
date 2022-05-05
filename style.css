@@ -99,7 +99,7 @@ header {
 button {
     height: 80px;
     background-color: #BAD4AA;
-    border: 2px solid #fff;
+    border: 0px solid #fff;
     border-radius: 5px;
     font-size: 15px;
     font-family: 'Exo 2', sans-serif;
