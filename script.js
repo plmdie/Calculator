@@ -40,8 +40,7 @@ const operate = (n1, o, n2) => {
 
 function equals() {
     getDisplayValues();
-    console.log(displayValue);
-        if (displayValue != '') {    
+    if (displayValue != '') {    
         if (calculation) return;
         if (num1) num2 = displayValue;
         writeToResult(resultValue + displayValue)
