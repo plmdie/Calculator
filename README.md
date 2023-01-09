@@ -2,7 +2,7 @@
 Calculator project for The Odin Project Curriculum
 
 
-![ScreenShot](./img/Screenshot.png)
+![ScreenShot](./img/screenshot.png)
 
 
 [Calculator](https://plmdie.github.io/Calculator/)
